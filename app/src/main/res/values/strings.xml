@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AppointmentCalendar</string>
+    <string name="snackbar_action_retry">retry</string>
+</resources>
