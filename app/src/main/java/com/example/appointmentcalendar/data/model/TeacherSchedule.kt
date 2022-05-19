@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "teacher_schedule_table")
 data class TeacherSchedule(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey
+    val id: Int = 0,
     @SerializedName("available")
     @ColumnInfo(name = "available")
     val availableList: List<ClassTime>,

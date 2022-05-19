@@ -1,7 +1,7 @@
 package com.example.appointmentcalendar.di
 
 import androidx.room.Room
-import com.example.appointmentcalendar.TeacherScheduleViewModel
+import com.example.appointmentcalendar.ui.TeacherScheduleViewModel
 import com.example.appointmentcalendar.data.local.TeacherScheduleDatabase
 import com.example.appointmentcalendar.data.remote.ScheduleService
 import com.example.appointmentcalendar.data.repository.ScheduleRepository

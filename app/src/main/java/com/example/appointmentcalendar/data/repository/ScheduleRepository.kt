@@ -7,13 +7,12 @@ import com.example.appointmentcalendar.data.local.dao.TeacherScheduleDao
 import com.example.appointmentcalendar.data.model.TeacherSchedule
 import com.example.appointmentcalendar.data.remote.ScheduleService
 import com.example.appointmentcalendar.util.TAG
+import com.example.appointmentcalendar.util.getLastStartAt
+import com.example.appointmentcalendar.util.getNextStartAt
 import com.example.appointmentcalendar.util.getStartAt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ScheduleRepository(
     private val scheduleService: ScheduleService,
@@ -21,17 +20,19 @@ class ScheduleRepository(
 ) {
     private val isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     private val snackBarMessage = MutableLiveData<String>()
+    private var currentStartedAt :String? = null
 
     fun getLoadingStatus(): LiveData<Boolean> = isLoading
     fun getSnackBarMessage(): MutableLiveData<String> = snackBarMessage
     fun getTeacherSchedule(): LiveData<TeacherSchedule> = teacherScheduleDao.getTeacherSchedule()
-    fun clearSnackBar() { snackBarMessage.value = "" }
+    fun getCurrentStartedAt() = currentStartedAt ?: getStartAt()
 
-    suspend fun refreshData() {
+    suspend fun refreshData(startedAt: String = getStartAt()) {
+        currentStartedAt = startedAt
         isLoading.value = true
         withContext(Dispatchers.IO) {
             try {
-                fetchTeacherSchedule(getStartAt())
+                fetchTeacherSchedule(startedAt)
             } catch (exception: Exception) {
                 when (exception) {
                     is IOException -> snackBarMessage.postValue("Network problem occurred")
@@ -42,6 +43,14 @@ class ScheduleRepository(
             }
             isLoading.postValue(false)
         }
+    }
+
+    suspend fun getNextWeekData() {
+        refreshData(getNextStartAt(getCurrentStartedAt()))
+    }
+
+    suspend fun getLastWeekData() {
+        refreshData(getLastStartAt(getCurrentStartedAt()))
     }
 
     private suspend fun fetchTeacherSchedule(startedAt: String) {

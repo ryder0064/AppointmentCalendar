@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appointmentcalendar.data.repository.ScheduleRepository
 import com.example.appointmentcalendar.test_util.getValue
 import com.example.appointmentcalendar.test_util.testTeacherSchedule
+import com.example.appointmentcalendar.ui.TeacherScheduleViewModel
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers

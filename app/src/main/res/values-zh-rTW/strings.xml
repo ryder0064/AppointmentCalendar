@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">行事曆demo</string>
+    <string name="snackbar_action_retry">再試一次</string>
+</resources>

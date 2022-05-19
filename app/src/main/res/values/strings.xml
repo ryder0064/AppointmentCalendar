@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">AppointmentCalendar</string>
+    <string name="app_name">CalendarDemo</string>
     <string name="snackbar_action_retry">retry</string>
 </resources>
